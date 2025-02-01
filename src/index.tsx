@@ -7,8 +7,6 @@ import { ArticleParamsForm } from './components/article-params-form/ArticleParam
 import {
 	ArticleStateType,
 	defaultArticleState,
-	fontColors,
-	contentWidthArr,
 } from './constants/articleProps';
 
 import './styles/index.scss';
@@ -22,14 +20,6 @@ const App = () => {
 	const [articleState, setArticleState] =
 		useState<ArticleStateType>(defaultArticleState);
 
-	const handleAgeChange = () => {
-		setArticleState((prevObject) => ({
-			...prevObject,
-			fontColor: fontColors[5],
-			contentWidth: contentWidthArr[1],
-		}));
-	};
-
 	return (
 		<main
 			className={clsx(styles.main)}
@@ -42,18 +32,12 @@ const App = () => {
 					'--bg-color': articleState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<button
-				style={{
-					fontSize: '40px',
-					width: '200',
-					height: '200',
-				}}
-				onClick={handleAgeChange}>
-				КНОПКA
-			</button>
-			<Article articleState={articleState} />
+			<Article />
 			<Sidebar>
-				<ArticleParamsForm />
+				<ArticleParamsForm
+					setArticleState={setArticleState}
+					articleState={articleState}
+				/>
 			</Sidebar>
 		</main>
 	);
@@ -64,11 +48,3 @@ root.render(
 		<App />
 	</StrictMode>
 );
-
-// export const defaultArticleState = {
-// 	fontFamilyOption: fontFamilyOptions[0],
-// 	fontColor: fontColors[0],
-// 	backgroundColor: backgroundColors[0],
-// 	contentWidth: contentWidthArr[0],
-// 	fontSizeOption: fontSizeOptions[0],
-// };

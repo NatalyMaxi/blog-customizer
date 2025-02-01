@@ -7,7 +7,7 @@ import { article, IParagraph } from 'src/constants/texts';
 
 import styles from './Article.module.scss';
 
-export const Article = ({ articleState }: any) => {
+export const Article = () => {
 	return (
 		<article className={clsx(styles.article)}>
 			<Text as='h1' size={45} weight={800} uppercase dynamicLite>
@@ -31,11 +31,7 @@ export const Article = ({ articleState }: any) => {
 			</Text>
 			{article.map((paragraph: IParagraph) => {
 				return (
-					<Text
-						as='p'
-						key={paragraph.id}
-						dynamic
-						size={articleState.fontSizeOption}>
+					<Text as='p' key={paragraph.id} dynamic size={18}>
 						{paragraph.text}
 					</Text>
 				);
