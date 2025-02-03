@@ -29,103 +29,81 @@ export const ArticleParamsForm = ({
 	const {
 		fontFamilyOption,
 		fontSizeOption,
-		fontColor,
-		backgroundColor,
-		contentWidth,
-	} = { ...articleState };
-	const [selectedFontFamily, setSelectedFontFamily] =
-		useState(fontFamilyOption);
-	const [selectedFontSize, setSelectedFontsize] = useState(fontSizeOption);
-	const [selectedFontColor, setSelectedFontColor] = useState(fontColor);
-	const [selectedBackgroundColor, setSelectedBackgroundColor] =
-		useState(backgroundColor);
-	const [selectedContentWidth, setSelectedContentWidth] =
-		useState(contentWidth);
+		fontColor: fontColorOption,
+		backgroundColor: backgroundColorOption,
+		contentWidth: contentWidthOption,
+	} = articleState;
 
-	const handleChangefontFamily = (option: OptionType) => {
-		setSelectedFontFamily(option);
-	};
-
-	const handleChangeFontSize = (option: OptionType) => {
-		setSelectedFontsize(option);
-	};
-
-	const handleChangeFontColor = (option: OptionType) => {
-		setSelectedFontColor(option);
-	};
-
-	const handleChangeBackgroundColor = (option: OptionType) => {
-		setSelectedBackgroundColor(option);
-	};
-
-	const handleChangeContentWidth = (option: OptionType) => {
-		setSelectedContentWidth(option);
-	};
+	const [fontFamily, setFontFamily] = useState<OptionType>(fontFamilyOption);
+	const [fontSize, setFontsize] = useState<OptionType>(fontSizeOption);
+	const [fontColor, setFontColor] = useState<OptionType>(fontColorOption);
+	const [backgroundColor, setBackgroundColor] = useState<OptionType>(
+		backgroundColorOption
+	);
+	const [contentWidth, setContentWidth] =
+		useState<OptionType>(contentWidthOption);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setArticleState({
 			...articleState,
-			fontFamilyOption: selectedFontFamily,
-			fontSizeOption: selectedFontSize,
-			fontColor: selectedFontColor,
-			backgroundColor: selectedBackgroundColor,
-			contentWidth: selectedContentWidth,
+			fontFamilyOption: fontFamily,
+			fontSizeOption: fontSize,
+			fontColor: fontColor,
+			backgroundColor: backgroundColor,
+			contentWidth: contentWidth,
 		});
 	};
 
-	const handleReturnDefaultSettings = () => {
+	const handleReset = () => {
 		setArticleState(defaultArticleState),
-			setSelectedFontFamily(defaultArticleState.fontFamilyOption),
-			setSelectedFontsize(defaultArticleState.fontSizeOption),
-			setSelectedFontColor(defaultArticleState.fontColor),
-			setSelectedBackgroundColor(defaultArticleState.backgroundColor),
-			setSelectedContentWidth(defaultArticleState.contentWidth);
+			setFontFamily(defaultArticleState.fontFamilyOption),
+			setFontsize(defaultArticleState.fontSizeOption),
+			setFontColor(defaultArticleState.fontColor),
+			setBackgroundColor(defaultArticleState.backgroundColor),
+			setContentWidth(defaultArticleState.contentWidth);
 	};
 
 	return (
-		<form
-			className={styles.form}
-			onSubmit={handleSubmit}
-			onReset={handleReturnDefaultSettings}>
+		<form className={styles.form} onSubmit={handleSubmit} onReset={handleReset}>
 			<Text as='h2' size={31} weight={800} uppercase>
 				Задайте параметры
 			</Text>
 			<Select
 				options={fontFamilyOptions}
-				selected={selectedFontFamily}
+				selected={fontFamily}
 				title='шрифт'
 				placeholder='Выберите шрифт'
-				onChange={handleChangefontFamily}
+				onChange={setFontFamily}
 			/>
 			<RadioGroup
 				options={fontSizeOptions}
-				selected={selectedFontSize}
+				selected={fontSize}
 				name='fontSize'
 				title='размер шрифта'
-				onChange={handleChangeFontSize}
+				onChange={setFontsize}
 			/>
 			<Select
 				options={fontColors}
-				selected={selectedFontColor}
+				selected={fontColor}
 				title='Цвет шрифта'
 				placeholder='Выберите цвет шрифта'
-				onChange={handleChangeFontColor}
+				onChange={setFontColor}
 			/>
 			<Separator />
 			<Select
 				options={backgroundColors}
-				selected={selectedBackgroundColor}
+				selected={backgroundColor}
 				title='Цвет фона'
 				placeholder='Выберите цвет фона'
-				onChange={handleChangeBackgroundColor}
+				onChange={setBackgroundColor}
 			/>
 			<Select
 				options={contentWidthArr}
-				selected={selectedContentWidth}
+				selected={contentWidth}
 				title='Ширина контента'
 				placeholder='Выберите ширину контента'
-				onChange={handleChangeContentWidth}
+				onChange={setContentWidth}
 			/>
 			<div className={styles.bottomContainer}>
 				<Button title='Сбросить' htmlType='reset' type='clear' />
